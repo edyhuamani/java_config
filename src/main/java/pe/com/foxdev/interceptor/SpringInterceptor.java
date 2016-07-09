@@ -1,10 +1,14 @@
 package pe.com.foxdev.interceptor;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -17,6 +21,8 @@ public class SpringInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("post peticion");
+		String modificador=request.getParameter("modificador");
+		
 		super.postHandle(request, response, handler, modelAndView);
 	}
 	
@@ -25,7 +31,18 @@ public class SpringInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		// TODO Auto-generated method stub
 		logger.info("pre-peticion");
-		return super.preHandle(request, response, handler);
+		Enumeration<String> parametros=request.getParameterNames();
+		
+		while (parametros.hasMoreElements()){
+			String cadena=parametros.nextElement();
+			logger.info("atributo"+cadena);
+		}
+		String country=request.getParameter("country");
+		//return super.preHandle(request, response, handler);
+		if (StringUtils.equals(country, "1")){
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

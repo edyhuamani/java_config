@@ -43,10 +43,10 @@ public class CatalogoController {
 	 */
 	@RequestMapping(value="/tipoCambio",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BaseResponseBean<String>> obtenerTipoCambio(
-//			@RequestParam(name="fecha") String fecha,
+		@RequestParam(name="country") String country,
 			HttpServletRequest request
 			)  throws CustomizeException {
-		logger.info("obtenerTipoCambio");
+		logger.info("obtenerTipoCambio"+country);
 		BaseResponseBean<String> response=new BaseResponseBean<>();
 		//ResponseEntity<BaseResponseBean<String>> response=new ResponseEntity<BaseResponseBean<String>>();
 		try{

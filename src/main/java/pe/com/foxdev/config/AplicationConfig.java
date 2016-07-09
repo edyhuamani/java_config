@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,11 +22,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping;
 
+import pe.com.foxdev.aspect.AspectLogger;
 import pe.com.foxdev.interceptor.SpringInterceptor;
 
 @Configuration
 @ComponentScan(basePackages="pe.com.foxdev") // context:component-scan base-package=”com.luckyryan.sample”/>
 @EnableWebMvc // <mvc:annotation-driven/>
+@EnableAspectJAutoProxy
 @Import(DevDatabaseConfig.class) // importa clase con configuracion db
 //@ImportResource("classpath:/config/spring-web-servlet.xml")
 @PropertySource("classpath:application.properties")
@@ -55,10 +58,10 @@ public class AplicationConfig extends WebMvcConfigurerAdapter{
 		return restTemplate;
 	}
 	
-	
-	public ControllerClassNameHandlerMapping getInterceptors(){
-		ControllerClassNameHandlerMapping handler=new ControllerClassNameHandlerMapping();
-		return handler;
+	@Bean
+	public AspectLogger getLogger(){
+		AspectLogger logger=new AspectLogger();
+		return logger;
 	}
 
 //	@Bean
